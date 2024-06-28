@@ -16,7 +16,16 @@ const bollywoodMovies = [
     'Ra.One', 'Koi... Mil Gaya', 'Krrish', 'Chak De! India', 'Bhool Bhulaiyaa'
 ];
 
+let usedMovies = new Set();
+
 document.getElementById('select-movie-button').addEventListener('click', () => {
-    const randomMovie = bollywoodMovies[Math.floor(Math.random() * bollywoodMovies.length)];
+    if (usedMovies.size === bollywoodMovies.length) {
+        usedMovies.clear(); // Reset the set if all movies have been used
+    }
+    let randomMovie;
+    do {
+        randomMovie = bollywoodMovies[Math.floor(Math.random() * bollywoodMovies.length)];
+    } while (usedMovies.has(randomMovie));
+    usedMovies.add(randomMovie);
     document.getElementById('selected-movie').textContent = randomMovie;
 });
